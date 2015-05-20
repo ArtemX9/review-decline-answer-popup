@@ -30,9 +30,9 @@ class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, 
     
     @IBAction func showPopDeclineView(sender: AnyObject) {
         setAllRounded()
-        showpopView()
         instantiatePickerTextField()
         addNotificationsObservers()
+        showpopView()
     }
     
     @IBAction func showPickerView(sender: AnyObject) {
@@ -47,24 +47,37 @@ class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, 
     func showpopView()
     {
         var effect = UIBlurEffect(style: UIBlurEffectStyle.Light)
-        visualEffectView = UIVisualEffectView(effect: effect)
-        visualEffectView.frame = view.frame
-        view.insertSubview(visualEffectView, belowSubview: popView)
-        popView.hidden = false
-        
+        self.visualEffectView = UIVisualEffectView(effect: effect)
+        self.visualEffectView.frame = self.view.frame
+        self.view.insertSubview(self.visualEffectView, belowSubview: self.popView)
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("dragged:"))
         popView.addGestureRecognizer(panGestureRecognizer)
         starRating.delegate = self
+        
+        self.popView.alpha = 0.0
+        self.popView.hidden = false
+        self.visualEffectView.hidden = false
+        self.visualEffectView.alpha = 0.0
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.popView.alpha = 1.0
+            self.visualEffectView.alpha = 1.0
+        }) { (finished) -> Void in }
     }
     
     func hidepopView()
     {
-        visualEffectView.hidden = true
-        popView.removeGestureRecognizer(panGestureRecognizer)
-        popView.hidden = true
-        self.popView.center = self.view.center;
-        self.popView.transform = CGAffineTransformMakeRotation(0);
-        removeNotificationsObservers()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.popView.alpha = 0.0
+            self.visualEffectView.alpha = 0.0
+            }) { (finished) -> Void in
+                self.popView.hidden = finished
+                self.visualEffectView.hidden = finished
+                self.popView.removeGestureRecognizer(self.panGestureRecognizer)
+                
+                self.popView.center = self.view.center;
+                self.popView.transform = CGAffineTransformMakeRotation(0);
+                self.removeNotificationsObservers()
+        }
     }
 
     //MARK: - picker view delegate

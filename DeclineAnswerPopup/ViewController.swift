@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, JWStarRatingViewDelegate {
+class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, JWStarRatingViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var pickerTextField: UITextField!
     @IBOutlet weak var popView: UIView!
@@ -51,6 +51,7 @@ class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, 
         self.visualEffectView.frame = self.view.frame
         self.view.insertSubview(self.visualEffectView, belowSubview: self.popView)
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("dragged:"))
+        panGestureRecognizer.delegate = self
         popView.addGestureRecognizer(panGestureRecognizer)
         starRating.delegate = self
         
@@ -164,6 +165,16 @@ class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, 
     }
     
     //MARK: - working with swipes
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if touch.view.isKindOfClass(JWStarRating)
+        {
+            return false
+        }
+
+        return true;
+    }
+    
     func dragged(gestureRecognizer: UIPanGestureRecognizer)
     {
         var xDistance = gestureRecognizer.translationInView(self.view).x

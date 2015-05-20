@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, JWStarRatingViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var pickerTextField: UITextField!
+    var keyboardShown = false
     @IBOutlet weak var popView: UIView!
     @IBOutlet weak var showReasonPicker: UIButton!
     
@@ -102,13 +103,16 @@ class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, 
         pickerView.delegate = pickerViewDataDelegate;
         pickerViewDataDelegate.delegate = self
         pickerTextField.inputView = pickerView;
-        
     }
     
     func keyboardWillShow(notification: NSNotification)
     {
+        if keyboardShown
+        {
+            return
+        }
+        keyboardShown = true
         var keyboardSize = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size
-        var newFrame = popView.bounds
         
         toppopViewConstraint.constant -= keyboardSize!.height;
         bottompopViewConstraint.constant += keyboardSize!.height
@@ -121,8 +125,6 @@ class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, 
     func keyboardWillHide(notification: NSNotification)
     {
         var keyboardSize = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size
-        var newFrame = popView.frame
-        newFrame.height
         
         toppopViewConstraint.constant += keyboardSize!.height;
         bottompopViewConstraint.constant -= keyboardSize!.height
@@ -130,6 +132,7 @@ class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, 
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
+        keyboardShown = false
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

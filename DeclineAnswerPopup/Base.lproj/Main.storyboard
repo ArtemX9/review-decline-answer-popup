@@ -52,7 +52,7 @@
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="showPickerView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="IRo-zD-pDb"/>
+                                            <action selector="showPicker:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="IRo-zD-pDb"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nnK-iN-ZrT" customClass="JWStarRatingView" customModule="DeclineAnswerPopup" customModuleProvider="target">
@@ -145,7 +145,7 @@
                         <outlet property="bottompopViewConstraint" destination="nbW-4k-Ux9" id="3Ie-Rs-Oxf"/>
                         <outlet property="confirmButton" destination="Jxl-rF-byn" id="iOy-2c-dUn"/>
                         <outlet property="enterReasonTextView" destination="dzz-iD-K9E" id="dKQ-nl-pzI"/>
-                        <outlet property="pickerTextField" destination="sKo-F0-e0O" id="448-G6-A3h"/>
+                        <outlet property="hiddenPickerTextField" destination="sKo-F0-e0O" id="448-G6-A3h"/>
                         <outlet property="popView" destination="9Wh-fS-kyx" id="l6h-sT-MQe"/>
                         <outlet property="showReasonPicker" destination="T1n-su-8oP" id="Wh1-iR-EJK"/>
                         <outlet property="starRating" destination="nnK-iN-ZrT" id="ypo-6X-4fS"/>

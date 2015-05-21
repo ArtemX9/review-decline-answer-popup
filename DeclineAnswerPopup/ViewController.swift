@@ -133,8 +133,9 @@ class ViewController: UIViewController, UITextViewDelegate, PickerViewDelegate, 
     func addDoneButtonToKeyboard(textView: AnyObject)
     {
         var toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 44))
+        var leftSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         var doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: Selector("hideKeyboard:"))
-        toolbar.setItems([doneButton], animated: false)
+        toolbar.setItems([leftSpace, doneButton], animated: false)
         if textView.isKindOfClass(UITextField)
         {
             (textView as! UITextField).inputAccessoryView = toolbar
